@@ -1,13 +1,15 @@
-import { Controller, Get, Post, Body, HttpException, HttpStatus, Param } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpException, HttpStatus, Param, UsePipes } from '@nestjs/common';
 import { CreateCatDto } from './dto/create-cat.dto';
 import { CatsService } from './cats.service';
 import { Cat } from './interfaces/cat.interface';
+import { ValidationPipe } from '../common/pipes/validation.pipe';
 
 @Controller('cats')
 export class CatsController {
   constructor(private readonly catsService: CatsService) {}
 
-  @Post()
+  @Post('add')
+  @UsePipes(new ValidationPipe())
   async create(@Body() createCatDto: CreateCatDto) {
     this.catsService.create(createCatDto);
   }
@@ -21,6 +23,6 @@ export class CatsController {
     throw new HttpException({
         status: HttpStatus.FORBIDDEN,
         error: 'This is a custom message',
-      }, 403);
+      }, 502);
   }
 }
