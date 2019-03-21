@@ -3,7 +3,7 @@ export class CreateCatDto {
     @IsString()
     readonly name: string;
     @IsInt()
-    readonly age: number;
+    readonly age: string;
     @IsString()
     readonly breed: string;
   }
