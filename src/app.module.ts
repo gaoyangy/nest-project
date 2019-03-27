@@ -15,6 +15,6 @@ export class ApplicationModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(LoggerMiddleware)
-      .forRoutes(CatsController);
+      .forRoutes('*');
   }
 }
